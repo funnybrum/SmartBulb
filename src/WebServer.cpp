@@ -15,6 +15,7 @@ void WebServer::registerHandlers() {
     server->on("/reset", std::bind(&WebServer::handle_reset, this));
     server->on("/brightness", std::bind(&WebServer::handle_brightness, this));
     server->on("/temperature", std::bind(&WebServer::handle_temperature, this));
+    server->on("/rgbw", std::bind(&WebServer::handle_rgbw, this));
 }
 
 void WebServer::handle_root() {
@@ -83,4 +84,19 @@ void WebServer::handle_temperature() {
     uint16_t val = server->arg("val").toInt();
     ledController.setTemperature(val);
     server->send(200);
+}
+
+void WebServer::handle_rgbw() {
+    if (server->args() == 1 && server->argName(0).length() == 8) {
+        uint32_t rgbw = strtoul(server->argName(0).c_str(), NULL, 16);
+        uint8_t r = rgbw >> 24;
+        uint8_t g = rgbw >> 16 & 0xFF;
+        uint8_t b = rgbw >> 8 & 0xFF;
+        uint8_t w = rgbw & 0xFF;
+        ledController.rgbw(r, g, b, w);
+        server->send(200);
+        return;
+    }
+
+    server->send(200, "text/html", "Missing RGBW value. Try with /rgbw?FF000000 .");
 }

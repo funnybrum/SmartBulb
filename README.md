@@ -13,13 +13,15 @@ Custom firmware for several "smart" bulbs:
 
 ## Compiling
 
-The project requires additional libraries that should be retrieved from another github repos. Execute the following commands to get this done (from the project root folder).
+The project requires additional libraries that should be retrieved from another github repos. One of them is the ESP8266 new pwm library, that require a file placed in the src folder. Execute the following commands to get all this done (from the project root folder).
 
 ```
 cd lib/
 git clone https://github.com/funnybrum/esp8266-base.git
-git clone https://github.com/arduino-libraries/NTPClient  # version 3.1.0
-git clone https://github.com/dmkishi/Dusk2Dawn            # version 1.0.1
+git clone https://github.com/arduino-libraries/NTPClient       # version 3.1.0
+git clone https://github.com/dmkishi/Dusk2Dawn                 # version 1.0.1
+git clone https://github.com/StefanBruens/ESP8266_new_pwm pwm  # @5feee3a
+cp pwm/pwm.c ../src                                            # put pwm.c in the src folder
 ```
 
 After that choose the proper hardware to be flashed - NO_NAME or SONOFF_B1. Apply changes for the following ... files:

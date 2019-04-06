@@ -17,6 +17,7 @@ class WebServer: public WebServerBase {
         void handle_reset();
         void handle_brightness();
         void handle_temperature();
+        void handle_rgbw();
 };
 
 #endif
