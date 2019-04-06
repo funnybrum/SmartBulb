@@ -5,3 +5,5 @@
 .vscode/launch.json
 .vscode/ipch/
 lib/esp8266-base
+lib/NTPClient
+lib/Dusk2Dawn

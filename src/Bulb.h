@@ -15,9 +15,13 @@
 #include "WiFi.h"
 #include "Logger.h"
 #include "WebServer.h"
+#include "LightManager.h"
+#include "NTPClock.h"
+#include "LEDController.h"
 
 struct SettingsData {
     NetworkSettings network;
+    // LightManagerSettings lmSettings;
     // struct LED {
         // uint8_t red;
         // uint8_t green;
@@ -49,5 +53,7 @@ extern Logger logger;
 extern Settings settings;
 extern SettingsData settingsData;
 extern WiFiManager wifi;
+// extern LightManager lightManager;
+extern LEDController ledController;
 
 #endif

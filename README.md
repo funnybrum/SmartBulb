@@ -8,16 +8,18 @@ Custom firmware for several "smart" bulbs:
  * Sonoff B1 (not yet, but will be supported)
 
  "Smart" is quoted because there is nothing smart in these yet. However there are plans to remove the quotes above by providing a functionality that makes them smart and includes:
-  * Automatic color adjustments (cold white light at day, warm white light at night) dependings on the current sun light.
-  * Automatic dimming function depending on the day time. Full brightness during the day, reduced during the evening, minimum during the night.
+  * Automatic color adjustments (cold white light at day, warm white light at night) dependings on the current sun light (estimated based on the sunrise and sunset time).
+  * Automatic dimming function depending on the day time. Full brightness during the day, reduced during the evening, minimum during the night.a
 
 ## Compiling
 
-The project requires additional lib that should be retrieved from another github repo. Execute the following commands to get this done (from the project root folder).
+The project requires additional libraries that should be retrieved from another github repos. Execute the following commands to get this done (from the project root folder).
 
 ```
 cd lib/
 git clone https://github.com/funnybrum/esp8266-base.git
+git clone https://github.com/arduino-libraries/NTPClient  # version 3.1.0
+git clone https://github.com/dmkishi/Dusk2Dawn            # version 1.0.1
 ```
 
 After that choose the proper hardware to be flashed - NO_NAME or SONOFF_B1. Apply changes for the following ... files:

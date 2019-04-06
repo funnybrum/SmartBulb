@@ -4,10 +4,6 @@ char buffer[4096];
 
 WebServer::WebServer(NetworkSettings* networkSettings, Logger* logger)
     :WebServerBase(networkSettings, logger) {
-    pinMode(RED_PIN, OUTPUT);
-    pinMode(BLUE_PIN, OUTPUT);
-    pinMode(GREEN_PIN, OUTPUT);
-    pinMode(WHITE_PIN, OUTPUT);
 }
 
 void WebServer::registerHandlers() {
@@ -17,10 +13,8 @@ void WebServer::registerHandlers() {
     server->on("/off", std::bind(&WebServer::handle_off, this));
     server->on("/settings", std::bind(&WebServer::handle_settings, this));
     server->on("/reset", std::bind(&WebServer::handle_reset, this));
-    server->on("/red", std::bind(&WebServer::handle_red, this));
-    server->on("/green", std::bind(&WebServer::handle_green, this));
-    server->on("/blue", std::bind(&WebServer::handle_blue, this));
-    server->on("/white", std::bind(&WebServer::handle_white, this));
+    server->on("/brightness", std::bind(&WebServer::handle_brightness, this));
+    server->on("/temperature", std::bind(&WebServer::handle_temperature, this));
 }
 
 void WebServer::handle_root() {
@@ -79,32 +73,14 @@ void WebServer::handle_off() {
     // TODO
 }
 
-void WebServer::led(uint8_t pin) {
+void WebServer::handle_brightness() {
     uint16_t val = server->arg("val").toInt();
-    analogWrite(pin, val);
-    server->send(200, "text/plain", "Done!");
-
-    // if (server->hasArg("iaq")) {
-    //     float iaq = server->arg("iaq").toFloat();
-    //     led.blink(iaq);
-        // server->send(200, "text/plain", "Just blinked!");
-    // } else {
-    //     server->send(400, "text/plain", "Missing iaq argument!");
-    // }
+    ledController.setBrightness(val);
+    server->send(200);
 }
 
-void WebServer::handle_red() {
-    led(RED_PIN);
-}
-
-void WebServer::handle_green() {
-    led(GREEN_PIN);
-}
-
-void WebServer::handle_blue() {
-    led(BLUE_PIN);
-}
-
-void WebServer::handle_white() {
-    led(WHITE_PIN);
+void WebServer::handle_temperature() {
+    uint16_t val = server->arg("val").toInt();
+    ledController.setTemperature(val);
+    server->send(200);
 }

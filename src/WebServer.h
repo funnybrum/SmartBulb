@@ -15,11 +15,8 @@ class WebServer: public WebServerBase {
         void handle_off();
         void handle_settings();
         void handle_reset();
-        void led(uint8_t);
-        void handle_red();
-        void handle_green();
-        void handle_blue();
-        void handle_white();
+        void handle_brightness();
+        void handle_temperature();
 };
 
 #endif
